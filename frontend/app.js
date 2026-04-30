@@ -5,6 +5,6 @@ App({
   
   globalData: {
     userInfo: null,
-    apiBaseUrl: 'http://localhost:3000/api'
+    apiBaseUrl: 'https://127.0.0.1:3000/api'
   }
 })
