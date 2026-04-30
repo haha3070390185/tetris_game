@@ -1,5 +1,5 @@
-const app = getApp()
 const { TetrisGame, SHAPES, COLORS } = require('../../../utils/tetris')
+const api = require('../../../utils/api')
 
 Page({
   data: {
@@ -13,7 +13,8 @@ Page({
     isPaused: false,
     gameStarted: false,
     highScore: 0,
-    playerName: ''
+    playerName: '',
+    isApiAvailable: true
   },
 
   tetrisGame: null,
@@ -168,34 +169,42 @@ Page({
     this.startGame()
   },
 
-  loadHighScore() {
-    wx.request({
-      url: `${app.globalData.apiBaseUrl}/scores/high`,
-      method: 'GET',
-      success: (res) => {
-        console.log('获取最高分响应:', res.data)
-        if (res.data && res.data.success) {
-          const score = res.data.data ? (res.data.data.score || 0) : 0
-          this.setData({
-            highScore: score
-          })
-          console.log('当前最高分:', score)
-        } else {
-          console.log('API返回非成功状态:', res.data)
-        }
-      },
-      fail: (err) => {
-        console.log('获取最高分失败（后端可能未启动）:', err)
-        wx.showToast({
-          title: '离线模式，游戏可正常游玩',
-          icon: 'none',
-          duration: 2000
+  async loadHighScore() {
+    try {
+      console.log('开始加载最高分...')
+      
+      const result = await api.scores.getHighest()
+      
+      console.log('API返回结果:', result)
+      
+      if (result && result.success) {
+        const score = result.data ? (result.data.score || 0) : 0
+        this.setData({
+          highScore: score,
+          isApiAvailable: true
+        })
+        console.log('当前最高分已设置:', score)
+      } else {
+        console.log('API返回非成功状态:', result)
+        this.setData({
+          isApiAvailable: false
         })
       }
-    })
+    } catch (error) {
+      console.error('加载最高分失败:', error)
+      this.setData({
+        isApiAvailable: false
+      })
+      
+      wx.showToast({
+        title: '离线模式，游戏可正常游玩',
+        icon: 'none',
+        duration: 2500
+      })
+    }
   },
 
-  submitScore() {
+  async submitScore() {
     if (!this.data.playerName) {
       wx.showToast({
         title: '请输入你的名字',
@@ -208,53 +217,56 @@ Page({
       title: '保存中...',
     })
     
-    wx.request({
-      url: `${app.globalData.apiBaseUrl}/scores`,
-      method: 'POST',
-      data: {
-        name: this.data.playerName,
-        score: this.data.score
-      },
-      header: {
-        'Content-Type': 'application/json'
-      },
-      success: (res) => {
-        wx.hideLoading()
-        console.log('保存分数响应:', res.data)
-        if (res.data && res.data.success) {
-          wx.showToast({
-            title: '保存成功！',
-            icon: 'success'
-          })
-          
-          setTimeout(() => {
-            wx.navigateBack()
-          }, 1500)
-        } else {
-          wx.showToast({
-            title: res.data ? res.data.message : '保存失败',
-            icon: 'none'
-          })
-        }
-      },
-      fail: (err) => {
-        wx.hideLoading()
-        console.log('保存分数失败:', err)
-        wx.showModal({
-          title: '保存失败',
-          content: '无法连接到服务器，分数已保存到本地。请稍后在排行榜中手动记录。',
-          showCancel: false,
-          success: () => {
+    try {
+      console.log('提交分数:', this.data.playerName, this.data.score)
+      
+      const result = await api.scores.submit(
+        this.data.playerName,
+        this.data.score
+      )
+      
+      wx.hideLoading()
+      
+      console.log('保存分数结果:', result)
+      
+      if (result && result.success) {
+        wx.showToast({
+          title: '保存成功！',
+          icon: 'success'
+        })
+        
+        setTimeout(() => {
+          wx.navigateBack()
+        }, 1500)
+      } else {
+        wx.showToast({
+          title: result ? result.message : '保存失败',
+          icon: 'none'
+        })
+      }
+    } catch (error) {
+      wx.hideLoading()
+      console.error('保存分数失败:', error)
+      
+      wx.showModal({
+        title: '保存失败',
+        content: `无法连接到服务器。\n\n当前分数: ${this.data.score}\n请确保后端服务已启动：\n1. 进入 backend 目录\n2. 运行: npm start\n\n或者分数已保存到本地。`,
+        showCancel: false,
+        confirmText: '我知道了',
+        success: () => {
+          try {
             wx.setStorageSync(`local_score_${Date.now()}`, {
               name: this.data.playerName,
               score: this.data.score,
               time: new Date().toISOString()
             })
-            wx.navigateBack()
+            console.log('分数已保存到本地存储')
+          } catch (e) {
+            console.error('本地存储失败:', e)
           }
-        })
-      }
-    })
+        }
+      })
+    }
   },
 
   onNameInput(e) {
