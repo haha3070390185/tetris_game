@@ -1,0 +1,16 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/game/game",
+    "pages/leaderboard/leaderboard"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#FF9EC5",
+    "navigationBarTitleText": "萌系俄罗斯方块",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#FFF5F8"
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}
