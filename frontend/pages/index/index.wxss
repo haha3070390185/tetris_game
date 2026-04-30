@@ -1,0 +1,57 @@
+.container {
+  padding-top: 80rpx;
+}
+
+.title {
+  font-size: 56rpx;
+  margin-bottom: 60rpx;
+}
+
+.game-preview {
+  text-align: center;
+  padding: 40rpx 0;
+}
+
+.preview-text {
+  font-size: 36rpx;
+  color: #FF6BA3;
+  margin-bottom: 30rpx;
+}
+
+.preview-icons {
+  display: flex;
+  justify-content: center;
+  gap: 20rpx;
+}
+
+.preview-icons .icon {
+  font-size: 48rpx;
+  animation: bounce 1s ease-in-out infinite;
+}
+
+.preview-icons .icon:nth-child(2) { animation-delay: 0.1s; }
+.preview-icons .icon:nth-child(3) { animation-delay: 0.2s; }
+.preview-icons .icon:nth-child(4) { animation-delay: 0.3s; }
+.preview-icons .icon:nth-child(5) { animation-delay: 0.4s; }
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-15rpx);
+  }
+}
+
+.btn-container {
+  margin-top: 60rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.cute-btn {
+  width: 80%;
+  margin: 25rpx 0;
+}

@@ -1,0 +1,95 @@
+<view class="game-container">
+  <!-- 游戏信息面板 -->
+  <view class="info-panel">
+    <view class="info-item">
+      <view class="info-label">分数</view>
+      <view class="info-value">{{score}}</view>
+    </view>
+    <view class="info-item">
+      <view class="info-label">等级</view>
+      <view class="info-value">{{level}}</view>
+    </view>
+    <view class="info-item">
+      <view class="info-label">行数</view>
+      <view class="info-value">{{lines}}</view>
+    </view>
+  </view>
+
+  <!-- 游戏主区域 -->
+  <view class="game-main">
+    <!-- 下一个方块预览 -->
+    <view class="next-preview">
+      <view class="preview-title">下一个</view>
+      <view class="preview-box">
+        <view class="preview-row" wx:for="{{nextShape}}" wx:key="index">
+          <view 
+            class="preview-cell" 
+            wx:for="{{item}}" 
+            wx:for-item="cell" 
+            wx:key="index"
+            style="{{cell ? 'background: ' + nextShapeColor : ''}}"
+          ></view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 游戏板 -->
+    <view class="game-board">
+      <view class="board-row" wx:for="{{gameBoard}}" wx:key="index">
+        <view 
+          class="board-cell" 
+          wx:for="{{item}}" 
+          wx:for-item="cell" 
+          wx:key="index"
+          style="{{cell ? 'background: ' + cell : ''}}"
+        ></view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 游戏开始/结束按钮 -->
+  <view class="control-buttons" wx:if="{{!gameStarted && !isGameOver}}">
+    <button class="cute-btn start-btn" bindtap="startGame">🎮 开始游戏</button>
+  </view>
+
+  <!-- 暂停/继续 -->
+  <view class="control-buttons" wx:if="{{gameStarted && !isGameOver}}">
+    <button class="cute-btn cute-btn-secondary" bindtap="togglePause">
+      {{isPaused ? '▶️ 继续' : '⏸️ 暂停'}}
+    </button>
+  </view>
+
+  <!-- 控制按钮 -->
+  <view class="control-panel" wx:if="{{gameStarted && !isGameOver && !isPaused}}">
+    <view class="control-row">
+      <button class="control-btn" bindtap="rotate">🔄 旋转</button>
+    </view>
+    <view class="control-row">
+      <button class="control-btn" bindtap="moveLeft">⬅️ 左</button>
+      <button class="control-btn" bindtap="hardDrop">⬇️ 落下</button>
+      <button class="control-btn" bindtap="moveRight">➡️ 右</button>
+    </view>
+  </view>
+
+  <!-- 游戏结束 -->
+  <view class="game-over-modal" wx:if="{{isGameOver}}">
+    <view class="game-over-content">
+      <view class="game-over-title">游戏结束！</view>
+      <view class="game-over-score">得分: {{score}}</view>
+      
+      <view class="input-section" wx:if="{{score >= highScore}}">
+        <view class="input-label">🎉 新纪录！输入你的名字:</view>
+        <input 
+          class="name-input" 
+          placeholder="请输入名字" 
+          bindinput="onNameInput"
+          maxlength="10"
+        />
+        <button class="cute-btn submit-btn" bindtap="submitScore">保存分数</button>
+      </view>
+      
+      <button class="cute-btn restart-btn" bindtap="restartGame">🔄 再来一局</button>
+      <button class="cute-btn cute-btn-secondary back-btn" bindtap="goBack">🏠 返回</button>
+    </view>
+  </view>
+</view>
