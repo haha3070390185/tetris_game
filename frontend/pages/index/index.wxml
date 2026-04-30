@@ -1,0 +1,26 @@
+<view class="container">
+  <view class="title">🎮 萌系俄罗斯方块 🎮</view>
+  
+  <view class="card">
+    <view class="game-preview">
+      <view class="preview-text">方块乐园等你来</view>
+      <view class="preview-icons">
+        <text class="icon">💗</text>
+        <text class="icon">💜</text>
+        <text class="icon">💙</text>
+        <text class="icon">💚</text>
+        <text class="icon">💛</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="btn-container">
+    <button class="cute-btn" bindtap="startGame">
+      🎯 开始游戏
+    </button>
+    
+    <button class="cute-btn cute-btn-secondary" bindtap="viewLeaderboard">
+      🏆 历史最高分
+    </button>
+  </view>
+</view>
