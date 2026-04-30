@@ -1,0 +1,150 @@
+.container {
+  padding-top: 60rpx;
+}
+
+.title {
+  font-size: 52rpx;
+  margin-bottom: 50rpx;
+}
+
+/* 加载状态 */
+.loading {
+  text-align: center;
+  padding: 100rpx 0;
+}
+
+.loading-text {
+  font-size: 32rpx;
+  color: #FF9EC5;
+}
+
+/* 空状态 */
+.empty-state {
+  text-align: center;
+  padding: 80rpx 40rpx;
+}
+
+.empty-icon {
+  font-size: 120rpx;
+  margin-bottom: 40rpx;
+}
+
+.empty-text {
+  font-size: 36rpx;
+  color: #FF9EC5;
+  margin-bottom: 20rpx;
+  font-weight: bold;
+}
+
+.empty-subtext {
+  font-size: 28rpx;
+  color: #FFC0D9;
+}
+
+/* 排行榜 */
+.leaderboard {
+  width: 100%;
+}
+
+/* 前三名 */
+.top-three {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 40rpx;
+  gap: 20rpx;
+}
+
+.top-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx 20rpx;
+  box-shadow: 0 8rpx 25rpx rgba(255, 158, 197, 0.25);
+}
+
+.top-item.second {
+  order: 1;
+}
+
+.top-item.first {
+  order: 2;
+  transform: scale(1.1);
+  z-index: 1;
+}
+
+.top-item.third {
+  order: 3;
+}
+
+.medal {
+  font-size: 56rpx;
+  margin-bottom: 15rpx;
+}
+
+.top-info {
+  text-align: center;
+}
+
+.top-name {
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 8rpx;
+  font-weight: bold;
+}
+
+.top-score {
+  font-size: 32rpx;
+  color: #FF6BA3;
+  font-weight: bold;
+}
+
+/* 其他排名列表 */
+.other-list {
+  background: white;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  margin-bottom: 40rpx;
+  box-shadow: 0 8rpx 25rpx rgba(255, 158, 197, 0.15);
+}
+
+.list-item {
+  display: flex;
+  align-items: center;
+  padding: 25rpx 20rpx;
+  border-bottom: 2rpx solid #FFF0F5;
+}
+
+.list-item:last-child {
+  border-bottom: none;
+}
+
+.list-rank {
+  font-size: 24rpx;
+  color: #FF9EC5;
+  font-weight: bold;
+  width: 80rpx;
+}
+
+.list-name {
+  flex: 1;
+  font-size: 28rpx;
+  color: #666;
+}
+
+.list-score {
+  font-size: 28rpx;
+  color: #FF6BA3;
+  font-weight: bold;
+}
+
+/* 按钮 */
+.btn-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20rpx;
+  margin-top: 20rpx;
+}

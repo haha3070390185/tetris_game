@@ -1,0 +1,59 @@
+<view class="container">
+  <view class="title">🏆 历史最高分 🏆</view>
+
+  <!-- 加载状态 -->
+  <view class="loading" wx:if="{{loading}}">
+    <view class="loading-text">加载中...</view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:elif="{{scores.length === 0}}">
+    <view class="empty-icon">🎮</view>
+    <view class="empty-text">还没有游戏记录哦</view>
+    <view class="empty-subtext">快去开始游戏创造纪录吧！</view>
+  </view>
+
+  <!-- 排行榜 -->
+  <view class="leaderboard" wx:else>
+    <!-- 前三名特殊展示 -->
+    <view class="top-three">
+      <view class="top-item second" wx:if="{{scores.length >= 2}}">
+        <view class="medal silver">🥈</view>
+        <view class="top-info">
+          <view class="top-name">{{scores[1].name}}</view>
+          <view class="top-score">{{scores[1].score}} 分</view>
+        </view>
+      </view>
+
+      <view class="top-item first" wx:if="{{scores.length >= 1}}">
+        <view class="medal gold">🏆</view>
+        <view class="top-info">
+          <view class="top-name">{{scores[0].name}}</view>
+          <view class="top-score">{{scores[0].score}} 分</view>
+        </view>
+      </view>
+
+      <view class="top-item third" wx:if="{{scores.length >= 3}}">
+        <view class="medal bronze">🥉</view>
+        <view class="top-info">
+          <view class="top-name">{{scores[2].name}}</view>
+          <view class="top-score">{{scores[2].score}} 分</view>
+        </view>
+      </view>
+    </view>
+
+    <!-- 其他排名 -->
+    <view class="other-list" wx:if="{{scores.length > 3}}">
+      <view class="list-item" wx:for="{{scores}}" wx:key="id" wx:if="{{index >= 3}}">
+        <view class="list-rank">#{{index + 1}}</view>
+        <view class="list-name">{{item.name}}</view>
+        <view class="list-score">{{item.score}} 分</view>
+      </view>
+    </view>
+  </view>
+
+  <view class="btn-container">
+    <button class="cute-btn" bindtap="refresh">🔄 刷新</button>
+    <button class="cute-btn cute-btn-secondary" bindtap="goBack">🏠 返回</button>
+  </view>
+</view>

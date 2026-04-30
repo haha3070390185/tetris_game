@@ -1,0 +1,59 @@
+/* 全局样式 - 卡通萌系Q版风格 */
+page {
+  background: linear-gradient(135deg, #FFF5F8 0%, #FFE4F0 50%, #F0E6FF 100%);
+  min-height: 100vh;
+  font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
+}
+
+.container {
+  padding: 40rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
+}
+
+/* 萌系按钮样式 */
+.cute-btn {
+  background: linear-gradient(135deg, #FF9EC5 0%, #FF6BA3 100%);
+  color: white;
+  border: none;
+  border-radius: 50rpx;
+  padding: 24rpx 60rpx;
+  font-size: 32rpx;
+  font-weight: bold;
+  box-shadow: 0 8rpx 20rpx rgba(255, 107, 163, 0.4);
+  transition: all 0.3s ease;
+  text-align: center;
+  margin: 20rpx;
+}
+
+.cute-btn:active {
+  transform: scale(0.95);
+  box-shadow: 0 4rpx 10rpx rgba(255, 107, 163, 0.4);
+}
+
+.cute-btn-secondary {
+  background: linear-gradient(135deg, #B8E6FF 0%, #87CEEB 100%);
+  box-shadow: 0 8rpx 20rpx rgba(135, 206, 235, 0.4);
+}
+
+/* 标题样式 */
+.title {
+  font-size: 48rpx;
+  font-weight: bold;
+  color: #FF6BA3;
+  text-shadow: 2rpx 2rpx 4rpx rgba(255, 107, 163, 0.3);
+  text-align: center;
+  margin-bottom: 40rpx;
+}
+
+/* 卡片样式 */
+.card {
+  background: white;
+  border-radius: 30rpx;
+  padding: 40rpx;
+  margin: 20rpx;
+  box-shadow: 0 10rpx 30rpx rgba(255, 158, 197, 0.2);
+  border: 3rpx solid #FFE4F0;
+}
